@@ -47,3 +47,6 @@ xnoremap("<leader>p", "\"_dP")
 
 -- Find and replace all on highlighted word 
 nnoremap("<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>")
+
+-- Apply a macro to the visually selected lines
+vim.keymap.set('x', '@', '":norm @" . getcharstr() . "<cr>"', { expr = true })
