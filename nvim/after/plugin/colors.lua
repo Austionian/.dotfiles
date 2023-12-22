@@ -1,59 +1,59 @@
--- TOKYO NIGHT THEME --
-vim.g.tokyonight_style = "night"
-vim.g.tokyonight_italic_functions = true
-vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
-
--- Load the colorscheme
-vim.cmd[[colorscheme tokyonight-night]]
+-- -- TOKYO NIGHT THEME --
+-- vim.g.tokyonight_style = "night"
+-- vim.g.tokyonight_italic_functions = true
+-- vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
+--
+-- -- Load the colorscheme
+-- vim.cmd[[colorscheme tokyonight-night]]
 
 -- MATERIAL DEEP OCEAN THEME --
 -- vim.g.material_style = "deep ocean"
 -- vim.cmd('colorscheme material')
 
 -- ROSE PINE THEME --
--- require('rose-pine').setup({
--- 	--- @usage 'main' | 'moon'
--- 	dark_variant = 'main',
--- 	bold_vert_split = false,
--- 	dim_nc_background = false,
--- 	disable_background = false,
--- 	disable_float_background = false,
--- 	disable_italics = true,
---
--- 	--- @usage string hex value or named color from rosepinetheme.com/palette
--- 	groups = {
--- 		background = 'base',
--- 		panel = 'surface',
--- 		border = 'highlight_med',
--- 		comment = 'muted',
--- 		link = 'iris',
--- 		punctuation = 'subtle',
---
--- 		error = 'love',
--- 		hint = 'iris',
--- 		info = 'foam',
--- 		warn = 'gold',
---
--- 		headings = {
--- 			h1 = 'iris',
--- 			h2 = 'foam',
--- 			h3 = 'rose',
--- 			h4 = 'gold',
--- 			h5 = 'pine',
--- 			h6 = 'foam',
--- 		}
--- 		-- or set all headings at once
--- 		-- headings = 'subtle'
--- 	},
---
--- 	-- Change specific vim highlight groups
--- 	highlight_groups = {
--- 		ColorColumn = { bg = 'rose' }
--- 	}
--- })
---
--- -- set colorscheme after options
--- vim.cmd('colorscheme rose-pine')
+require('rose-pine').setup({
+	--- @usage 'main' | 'moon'
+	dark_variant = 'main',
+	bold_vert_split = false,
+	dim_nc_background = false,
+	disable_background = false,
+	disable_float_background = false,
+	disable_italics = true,
+
+	--- @usage string hex value or named color from rosepinetheme.com/palette
+	groups = {
+		background = '',
+		panel = 'surface',
+		border = 'highlight_med',
+		comment = 'muted',
+		link = 'iris',
+		punctuation = 'subtle',
+
+		error = 'love',
+		hint = 'iris',
+		info = 'foam',
+		warn = 'gold',
+
+		headings = {
+			h1 = 'iris',
+			h2 = 'foam',
+			h3 = 'rose',
+			h4 = 'gold',
+			h5 = 'pine',
+			h6 = 'foam',
+		}
+		-- or set all headings at once
+		-- headings = 'subtle'
+	},
+
+	-- Change specific vim highlight groups
+	highlight_groups = {
+		ColorColumn = { bg = 'rose' }
+	}
+})
+
+-- set colorscheme after options
+vim.cmd('colorscheme rose-pine')
 
 -- GRUVBOX THEME --
 -- require("gruvbox").setup({

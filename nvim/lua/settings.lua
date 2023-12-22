@@ -11,7 +11,7 @@ vim.o.expandtab = true
 
 vim.o.smartindent = true
 
-vim.o.colorcolumn = "80"
+-- vim.o.colorcolumn = "80"
 
 vim.opt.swapfile = false
 vim.opt.backup = false
