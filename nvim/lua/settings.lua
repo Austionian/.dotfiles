@@ -35,3 +35,10 @@ vim.g.mapleader = ' '
 -- LEAP PLUGIN 
 require('leap').add_default_mappings()
 
+vim.cmd[[ augroup transparent_signs
+au!
+autocmd ColorScheme * highlight SignColumn guibg=NONE
+autocmd ColorScheme * highlight GitSignsAdd guibg=NONE
+autocmd ColorScheme * highlight GitSignsChange guibg=NONE
+autocmd ColorScheme * highlight GitSignsDelete guibg=NONE
+augroup END ]]
