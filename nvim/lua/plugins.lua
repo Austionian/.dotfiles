@@ -23,12 +23,16 @@ return require('packer').startup(function(use)
   -- use 'marko-cerovac/material.nvim'
   use 'folke/tokyonight.nvim'
   use 'rose-pine/neovim'
-  use 'austionian/gruvbox.nvim'
+  -- use { "ellisonleao/gruvbox.nvim" }
   -- use {'austionian/oxocarbon.nvim', run = './install.sh'}
   -- use "EdenEast/nightfox.nvim"
   -- use "Shatur/neovim-ayu"
   -- use "sainnhe/everforest"
   -- use { "catppuccin/nvim", as = "catppuccin" }
+  -- use "EdenEast/nightfox.nvim"
+  use "rebelot/kanagawa.nvim"
+  use({ 'kepano/flexoki-neovim', as = 'flexoki' })
+  use {'nyoom-engineering/oxocarbon.nvim'}
 
   -- LSP 
   use {

@@ -56,22 +56,22 @@
 -- vim.cmd('colorscheme rose-pine')
 
 -- GRUVBOX THEME --
-require("gruvbox").setup({
-  undercurl = true,
-  underline = true,
-  bold = true,
-  italic = false,
-  strikethrough = true,
-  invert_selection = false,
-  invert_signs = false,
-  invert_tabline = false,
-  invert_intend_guides = false,
-  inverse = true, -- invert background for search, diffs, statuslines and errors
-  contrast = "hard", -- can be "hard", "soft" or empty string
-  overrides = {},
-})
-vim.o.background = "dark" 
-vim.cmd("colorscheme gruvbox")
+-- require("gruvbox").setup({
+--   undercurl = true,
+--   underline = true,
+--   bold = true,
+--   italic = false,
+--   strikethrough = true,
+--   invert_selection = false,
+--   invert_signs = false,
+--   invert_tabline = false,
+--   invert_intend_guides = false,
+--   inverse = true, -- invert background for search, diffs, statuslines and errors
+--   contrast = "hard", -- can be "hard", "soft" or empty string
+--   overrides = {},
+-- })
+-- vim.o.background = "dark"
+-- vim.cmd("colorscheme gruvbox")
 
 -- OXOCARBON THEME 
 -- vim.o.background = "dark"
@@ -118,6 +118,35 @@ vim.cmd("colorscheme gruvbox")
 -- AYU DARK THEME --
 -- vim.cmd("colorscheme ayu-dark")
 
+--   -- Default options:
+-- require('kanagawa').setup({
+--     compile = false,             -- enable compiling the colorscheme
+--     undercurl = true,            -- enable undercurls
+--     commentStyle = { italic = true },
+--     functionStyle = {},
+--     keywordStyle = { italic = true},
+--     statementStyle = { bold = true },
+--     typeStyle = {},
+--     transparent = true,         -- do not set background color
+--     dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+--     terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+--     colors = {                   -- add/modify theme and palette colors
+--         palette = {},
+--         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+--     },
+--     theme = "wave",              -- Load "wave" theme when 'background' option is not set
+--     background = {               -- map the value of 'background' option to a theme
+--         dark = "wave",           -- try "dragon" !
+--         light = "lotus"
+--     },
+-- })
+--
+-- -- setup must be called before loading
+-- vim.cmd("colorscheme kanagawa")
+--
+vim.opt.background = "dark" -- set this to dark or light
+vim.cmd("colorscheme oxocarbon")
+
 -- CATTPUCCINO --
 -- vim.g.catppuccin_flavour = "mocha"
 -- require("catppuccin").setup()
@@ -126,5 +155,5 @@ vim.cmd("colorscheme gruvbox")
 --
 --
 -- REMOVE NVIM BACKGROUND
-vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
-vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})
+-- vim.api.nvim_set_hl(0, "Normal", {bg = "none"})
+-- vim.api.nvim_set_hl(0, "NormalFloat", {bg = "none"})

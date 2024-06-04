@@ -86,6 +86,14 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   group = vim.api.nvim_create_augroup('MyAutocmdsJavaScripFormatting', {}),
 })
 
+require("lspconfig").tsserver.setup{
+  settings = {
+    implicitProjectConfiguration = { 
+      checkJs = true
+    },
+  }
+}
+
 -- local on_attach = function(client, bufnr)
 --   -- Enable completion triggered by <c-x><c-o>
 --   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
