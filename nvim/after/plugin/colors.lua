@@ -13,16 +13,28 @@
 -- -- ROSE PINE THEME --
 -- require('rose-pine').setup({
 -- 	--- @usage 'main' | 'moon'
--- 	dark_variant = 'main',
+-- 	dark_variant = 'moon',
 -- 	bold_vert_split = false,
 -- 	dim_nc_background = false,
 -- 	disable_background = false,
 -- 	disable_float_background = false,
 -- 	disable_italics = true,
 --
+--      enable = {
+--         terminal = true,
+--         legacy_highlights = true, -- Improve compatibility for previous versions of Neovim
+--         migrations = true, -- Handle deprecated options automatically
+--     },
+--
+--     styles = {
+--         bold = true,
+--         italic = true,
+--         transparency = false,
+--     },
+--
+--
 -- 	--- @usage string hex value or named color from rosepinetheme.com/palette
 -- 	groups = {
--- 		background = '',
 -- 		panel = 'surface',
 -- 		border = 'highlight_med',
 -- 		comment = 'muted',
@@ -118,34 +130,37 @@
 -- AYU DARK THEME --
 -- vim.cmd("colorscheme ayu-dark")
 
---   -- Default options:
--- require('kanagawa').setup({
---     compile = false,             -- enable compiling the colorscheme
---     undercurl = true,            -- enable undercurls
---     commentStyle = { italic = true },
---     functionStyle = {},
---     keywordStyle = { italic = true},
---     statementStyle = { bold = true },
---     typeStyle = {},
---     transparent = true,         -- do not set background color
---     dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
---     terminalColors = true,       -- define vim.g.terminal_color_{0,17}
---     colors = {                   -- add/modify theme and palette colors
---         palette = {},
---         theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
---     },
---     theme = "wave",              -- Load "wave" theme when 'background' option is not set
---     background = {               -- map the value of 'background' option to a theme
---         dark = "wave",           -- try "dragon" !
---         light = "lotus"
---     },
--- })
---
--- -- setup must be called before loading
--- vim.cmd("colorscheme kanagawa")
---
-vim.opt.background = "dark" -- set this to dark or light
-vim.cmd("colorscheme oxocarbon")
+  -- Default options:
+require('kanagawa').setup({
+    compile = false,             -- enable compiling the colorscheme
+    undercurl = true,            -- enable undercurls
+    commentStyle = { italic = true },
+    functionStyle = {},
+    keywordStyle = { italic = true},
+    statementStyle = { bold = true },
+    typeStyle = {},
+    transparent = false,         -- do not set background color
+    dimInactive = false,         -- dim inactive window `:h hl-NormalNC`
+    terminalColors = true,       -- define vim.g.terminal_color_{0,17}
+    colors = {                   -- add/modify theme and palette colors
+        palette = {},
+        theme = { wave = {}, lotus = {}, dragon = {}, all = {} },
+    },
+    theme = "wave",              -- Load "wave" theme when 'background' option is not set
+    background = {               -- map the value of 'background' option to a theme
+        dark = "wave",           -- try "dragon" !
+        light = "lotus"
+    },
+})
+
+-- setup must be called before loading
+vim.cmd("colorscheme kanagawa")
+
+-- vim.opt.background = "dark" -- set this to dark or light
+-- vim.cmd("colorscheme base16-gruvbox-dark-hard")
+
+-- vim.opt.background = "dark" -- set this to dark or light
+-- vim.cmd("colorscheme oxocarbon")
 
 -- CATTPUCCINO --
 -- vim.g.catppuccin_flavour = "mocha"

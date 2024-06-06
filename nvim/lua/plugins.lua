@@ -27,12 +27,14 @@ return require('packer').startup(function(use)
   -- use {'austionian/oxocarbon.nvim', run = './install.sh'}
   -- use "EdenEast/nightfox.nvim"
   -- use "Shatur/neovim-ayu"
+  use 'ayu-theme/ayu-vim'
   -- use "sainnhe/everforest"
   -- use { "catppuccin/nvim", as = "catppuccin" }
   -- use "EdenEast/nightfox.nvim"
   use "rebelot/kanagawa.nvim"
   use({ 'kepano/flexoki-neovim', as = 'flexoki' })
   use {'nyoom-engineering/oxocarbon.nvim'}
+  use "wincent/base16-nvim"
 
   -- LSP 
   use {
