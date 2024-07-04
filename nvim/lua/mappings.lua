@@ -39,6 +39,9 @@ nnoremap("<C-u>", "<C-u>zz")
 nnoremap("n", "nzzzv")
 nnoremap("N", "Nzzzv")
 
+-- Open code actions
+nnoremap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+
 -- Open Undo Tree
 nnoremap("<leader>u", "<cmd>UndotreeToggle<cr>")
 
