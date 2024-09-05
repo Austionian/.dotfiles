@@ -77,8 +77,6 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
-lsp.setup()
-
 -- Format on save with eslint
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = { '*.tsx', '*.ts', '*.jsx', '*.js' },
@@ -88,11 +86,15 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 
 require("lspconfig").tsserver.setup{
   settings = {
-    implicitProjectConfiguration = { 
+    implicitProjectConfiguration = {
       checkJs = true
-    },
+    }
   }
 }
+
+require'lspconfig'.tailwindcss.setup{}
+
+lsp.setup()
 
 -- local on_attach = function(client, bufnr)
 --   -- Enable completion triggered by <c-x><c-o>
