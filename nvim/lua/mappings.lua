@@ -39,6 +39,10 @@ nnoremap("<C-u>", "<C-u>zz")
 nnoremap("n", "nzzzv")
 nnoremap("N", "Nzzzv")
 
+
+-- Open diagnostics in telescope
+nnoremap('<leader>dd', '<cmd>Telescope diagnostics<CR>')
+
 -- Open code actions
 nnoremap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
 

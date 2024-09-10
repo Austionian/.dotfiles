@@ -1,45 +1,25 @@
-return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-
-  -- common
-  use {
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end
-  }
-  use {
+  return {
+      -- common
+      'lewis6991/gitsigns.nvim',
+      {
     'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
-  use {
+    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true }
+  },
+   {
       'nvim-telescope/telescope.nvim',
-      requires = { {'nvim-lua/plenary.nvim'} }
-  }
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+      dependencies = { {'nvim-lua/plenary.nvim'} }
+  },
+{'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
 
   -- themes
-  -- use 'marko-cerovac/material.nvim'
-  use 'folke/tokyonight.nvim'
-  use 'rose-pine/neovim'
-  -- use { "ellisonleao/gruvbox.nvim" }
-  -- use {'austionian/oxocarbon.nvim', run = './install.sh'}
-  -- use "EdenEast/nightfox.nvim"
-  -- use "Shatur/neovim-ayu"
-  use 'ayu-theme/ayu-vim'
-  -- use "sainnhe/everforest"
-  -- use { "catppuccin/nvim", as = "catppuccin" }
-  -- use "EdenEast/nightfox.nvim"
-  use "rebelot/kanagawa.nvim"
-  use({ 'kepano/flexoki-neovim', as = 'flexoki' })
-  use {'nyoom-engineering/oxocarbon.nvim'}
-  use "wincent/base16-nvim"
+  -- use 'folke/tokyonight.nvim'
+  -- use 'rose-pine/neovim'
+   "rebelot/kanagawa.nvim",
 
   -- LSP 
-  use {
+{
 	  'VonHeikemen/lsp-zero.nvim',
-	  requires = {
+	  dependencies = {
 		  -- LSP Support
 		  {'neovim/nvim-lspconfig'},
 		  {'williamboman/mason.nvim'},
@@ -57,39 +37,51 @@ return require('packer').startup(function(use)
 		  {'L3MON4D3/LuaSnip'},
 		  {'rafamadriz/friendly-snippets'},
 	  }
-  }
+  },
 
   -- general dev
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-  use 'nvim-treesitter/nvim-treesitter-context'
-  use {
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function ()
+      local configs = require("nvim-treesitter.configs")
+
+      configs.setup({
+  ensure_installed = { "typescript", "javascript", "rust", "python", "lua" },
+          sync_install = true,
+          highlight = { enable = true },
+          indent = { enable = true },
+        })
+    end
+ },
+  'nvim-treesitter/nvim-treesitter-context',
+  {
       'windwp/nvim-ts-autotag',
       config = function() require('nvim-ts-autotag').setup() end
-      }
-  use {
+      },
+  {
 	"windwp/nvim-autopairs",
     config = function() require("nvim-autopairs").setup() end
-  }
-  use {
+  },
+  {
     'numToStr/Comment.nvim',
     config = function()
         require('Comment').setup()
     end
-  }
+  },
 
-  use 'ggandor/leap.nvim'
-  use 'mbbill/undotree'
-  use 'tpope/vim-fugitive'
+  'ggandor/leap.nvim',
+  'mbbill/undotree',
+  'tpope/vim-fugitive',
 
   -- Rust
-  use 'rust-lang/rust.vim'
+  'rust-lang/rust.vim',
 
   -- JS
-  use('jose-elias-alvarez/null-ls.nvim')
-  use('MunifTanjim/prettier.nvim')
+  'jose-elias-alvarez/null-ls.nvim',
+  'MunifTanjim/prettier.nvim',
 
   -- Debugging
-  use 'nvim-lua/plenary.nvim'
-  use 'mfussenegger/nvim-dap'
-end)
-
+  'nvim-lua/plenary.nvim',
+  'mfussenegger/nvim-dap',
+}
