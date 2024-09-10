@@ -1,61 +1,6 @@
-local lsp = require("lsp-zero")
+local lsp_zero = require('lsp-zero')
 
-lsp.preset("recommended")
-
-lsp.ensure_installed({
-  'tsserver',
-  'rust_analyzer',
-  'pyright',
-  'tailwindcss',
-})
-
--- Fix Undefined global 'vim'
-lsp.configure('lua-language-server', {
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { 'vim' }
-            }
-        }
-    }
-})
-
-local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
-})
-
--- disable completion with tab
--- this helps with copilot setup
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
-})
-
-lsp.set_preferences({
-    suggest_lsp_servers = false,
-    configure_diagnostics = false,
-    sign_icons = {
-        error = 'E',
-        warn = 'W',
-        hint = 'H',
-        info = 'I'
-    }
-})
-
-vim.diagnostic.config({
-    virtual_text = true,
-    underline = true,
-    float = false,
-})
-
-lsp.on_attach(function(client, bufnr)
+local lsp_attach = function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
 
   if client.name == "eslint" then
@@ -63,28 +8,33 @@ lsp.on_attach(function(client, bufnr)
       return
   end
 
-  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-  vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
-  vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
-  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+  vim.keymap.set("n", "gd", function() vim.lsp_zero.buf.definition() end, opts)
+  vim.keymap.set('n', 'gi', function() vim.lsp_zero.buf.implementation() end, opts)
+  vim.keymap.set('n', 'gr', function() vim.lsp_zero.buf.references() end, opts)
+  vim.keymap.set("n", "K", function() vim.lsp_zero.buf.hover() end, opts)
+  vim.keymap.set("n", "<leader>vws", function() vim.lsp_zero.buf.workspace_symbol() end, opts)
   vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
   vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { noremap = true, silent = true })
   vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
   vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-  vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
-end)
+  vim.keymap.set("n", "<leader>vca", function() vim.lsp_zero.buf.code_action() end, opts)
+  vim.keymap.set("n", "<leader>vrn", function() vim.lsp_zero.buf.rename() end, opts)
+  vim.keymap.set("i", "<C-h>", function() vim.lsp_zero.buf.signature_help() end, opts)
+  -- lsp_zero.default_keymaps({buffer = bufnr})
+end
 
--- Format on save with eslint
-vim.api.nvim_create_autocmd('BufWritePre', {
-  pattern = { '*.tsx', '*.ts', '*.jsx', '*.js' },
-  command = 'silent! Prettier',
-  group = vim.api.nvim_create_augroup('MyAutocmdsJavaScripFormatting', {}),
+lsp_zero.extend_lspconfig({
+  lsp_attach = lsp_attach,
+  sign_text = {
+      error = '✘',
+      warn = '▲',
+      hint = '⚑',
+      info = '»',
+  },
+  capabilities = require('cmp_nvim_lsp').default_capabilities()
 })
 
-require("lspconfig").tsserver.setup{
+require("lspconfig").ts_ls.setup{
   settings = {
     implicitProjectConfiguration = {
       checkJs = true
@@ -92,9 +42,148 @@ require("lspconfig").tsserver.setup{
   }
 }
 
-require'lspconfig'.tailwindcss.setup{}
+require('mason').setup({})
+require('mason-lspconfig').setup({
+  -- Replace the language servers listed here
+  -- with the ones you want to install
+  ensure_installed = {'lua_ls', 'rust_analyzer', 'tailwindcss', 'ts_ls'},
+  handlers = {
+    function(server_name) -- default handler (optional)
+        local capabilities = require("cmp_nvim_lsp").default_capabilities()
+        require("lspconfig")[server_name].setup({
 
-lsp.setup()
+            capabilities = capabilities,
+        })
+    end,
+    ts_ls = function()
+      require('lspconfig').ts_ls.setup({
+        implicitProjectConfiguration = {
+          checkJs = true
+        }
+      })
+    end,
+  }
+})
+
+-- local lsp_zero = require('lsp-zero')
+--
+-- local lsp_attach = function(client, bufnr)
+--   lsp_zero.default_keymaps({buffer = bufnr})
+-- end
+--
+-- lsp_zero.extend_lspconfig({
+--   sign_text = true,
+--   lsp_attach = lsp_attach,
+--   sign_text = {
+--       error = '✘',
+--       warn = '▲',
+--       hint = '⚑',
+--       info = '»',
+--   },
+--   capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- })
+--
+-- require('lspconfig').rust_analyzer.setup({})
+-- require('lspconfig').ts_ls.setup({})
+-- require('lspconfig').pyright.setup({})
+-- require('lspconfig').tailwindcss.setup({})
+
+
+-- local lsp = require("lsp-zero")
+--
+-- lsp.preset("recommended")
+--
+-- lsp.ensure_installed({
+--   'tsserver',
+--   'rust_analyzer',
+--   'pyright',
+--   'tailwindcss',
+-- })
+--
+-- -- Fix Undefined global 'vim'
+-- lsp.configure('lua-language-server', {
+--     settings = {
+--         Lua = {
+--             diagnostics = {
+--                 globals = { 'vim' }
+--             }
+--         }
+--     }
+-- })
+--
+-- local cmp = require('cmp')
+-- local cmp_select = {behavior = cmp.SelectBehavior.Select}
+-- local cmp_mappings = lsp.defaults.cmp_mappings({
+--   ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+--   ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+--   ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+--   ["<C-Space>"] = cmp.mapping.complete(),
+-- })
+--
+-- -- disable completion with tab
+-- -- this helps with copilot setup
+-- cmp_mappings['<Tab>'] = nil
+-- cmp_mappings['<S-Tab>'] = nil
+--
+-- lsp.setup_nvim_cmp({
+--   mapping = cmp_mappings
+-- })
+--
+-- lsp.set_preferences({
+--     suggest_lsp_servers = false,
+--     configure_diagnostics = false,
+--     sign_icons = {
+--         error = 'E',
+--         warn = 'W',
+--         hint = 'H',
+--         info = 'I'
+--     }
+-- })
+--
+-- vim.diagnostic.config({
+--     virtual_text = true,
+--     underline = true,
+--     float = false,
+-- })
+--
+-- lsp.on_attach(function(client, bufnr)
+--   local opts = {buffer = bufnr, remap = false}
+--
+--   if client.name == "eslint" then
+--       vim.cmd [[ LspStop eslint ]]
+--       return
+--   end
+--
+--   vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+--   vim.keymap.set('n', 'gi', function() vim.lsp.buf.implementation() end, opts)
+--   vim.keymap.set('n', 'gr', function() vim.lsp.buf.references() end, opts)
+--   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+--   vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+--   vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+--   vim.api.nvim_set_keymap('n', '<leader>dd', '<cmd>Telescope diagnostics<CR>', { noremap = true, silent = true })
+--   vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+--   vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+--   vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+--   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+--   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+-- end)
+--
+-- -- Format on save with prettier
+-- vim.api.nvim_create_autocmd('BufWritePre', {
+--   pattern = { '*.tsx', '*.ts', '*.jsx', '*.js' },
+--   command = 'silent! Prettier',
+--   group = vim.api.nvim_create_augroup('MyAutocmdsJavaScripFormatting', {}),
+-- })
+--
+-- require("lspconfig").ts_ls.setup{
+--   settings = {
+--     implicitProjectConfiguration = {
+--       checkJs = true
+--     }
+--   }
+-- }
+--
+-- require'lspconfig'.tailwindcss.setup{}
 
 -- local on_attach = function(client, bufnr)
 --   -- Enable completion triggered by <c-x><c-o>
