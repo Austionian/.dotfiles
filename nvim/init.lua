@@ -186,7 +186,7 @@ vim.api.nvim_create_autocmd(
 	'TextYankPost',
 	{
 		pattern = '*',
-		command = 'silent! lua vim.highlight.on_yank({ timeout = 500 })'
+		command = 'silent! lua vim.highlight.on_yank({ timeout = 250 })'
 	}
 )
 -- jump to last edit position on opening file
@@ -343,13 +343,12 @@ require("lazy").setup({
 				})
 			end
 	},
-	"williamboman/mason.nvim",
-	"williamboman/mason-lspconfig.nvim",
 	{
 		'neovim/nvim-lspconfig',
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
+			{ 'j-hui/fidget.nvim', opts = {} },
 		},
 		config = function()
 			-- Setup language servers.
@@ -580,14 +579,15 @@ require("lazy").setup({
 	"folke/which-key.nvim",
 	{
 		"lewis6991/gitsigns.nvim",
-		config = function()
-			require('gitsigns').setup{}
-		end
-	},
-	{
-		'akinsho/bufferline.nvim',
-		lazy = false,
-		version = "*"
+		opts = {
+		  signs = {
+			add = { text = '+' },
+			change = { text = '~' },
+			delete = { text = '_' },
+			topdelete = { text = '‾' },
+			changedelete = { text = '~' },
+		  },
+		},
 	},
 	{
 		'nvim-lualine/lualine.nvim',
@@ -606,7 +606,9 @@ require("lazy").setup({
 				},
 			}
 		end
-	}
+	},
+	-- Highlight todo, notes, etc in comments
+  { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
 })
 
 --[[
