@@ -93,6 +93,14 @@ vim.keymap.set('n', '<leader><CR>', ':so ~/.config/nvim/init.lua<CR>')
 vim.keymap.set('n', '<C-j>', ':cnext<CR>')
 vim.keymap.set('n', '<C-k>', ':cprev<CR>')
 
+vim.keymap.set('i', '"', '""<left>')
+vim.keymap.set('i', "'", "''<left>")
+vim.keymap.set('i', '(', '()<left>')
+vim.keymap.set('i', '[', '[]<left>')
+vim.keymap.set('i', '{', '{}<left>')
+vim.keymap.set('i', '{<CR>', '{<CR>}<ESC>O')
+vim.keymap.set('i', '{;<CR>', '{<CR>};<ESC>O')
+
 vim.keymap.set('n', 'J', 'mzJ`z')
 
 -- Toggle between buffers
@@ -139,8 +147,6 @@ vim.keymap.set('n', "<leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set('x', '@', '":norm @" . getcharstr() . "<cr>"', { expr = true })
 -- quick-save
 vim.keymap.set('n', '<leader>w', '<cmd>w<cr>')
--- make missing : less annoying
-vim.keymap.set('n', ';', ':')
 -- Jump to start and end of line using the home row keys
 vim.keymap.set('', 'H', '^')
 vim.keymap.set('', 'L', '$')
