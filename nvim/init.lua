@@ -714,7 +714,8 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'taplo',
+        'taplo', -- Used to format toml
+        'prettier', -- Used to format js/ts/hmtl
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -771,11 +772,28 @@ require('lazy').setup({
         python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
-        typescript = { 'prettierd', 'prettier', stop_after_first = true },
-        rust = { 'rustfmt', lsp_format = 'fallback' },
+        javascript = { 'prettier' },
+        typescript = { 'prettier' },
+        javascriptreact = { 'prettier' },
+        typescriptreact = { 'prettier' },
         html = { 'prettier' },
+        htmldjango = { 'prettier' },
+        svelte = { 'prettier' },
+        css = { 'prettier' },
+        json = { 'prettier' },
+        yaml = { 'prettier' },
+        markdown = { 'prettier' },
+        rust = { 'rustfmt', lsp_format = 'fallback' },
         toml = { 'taplo' },
+      },
+      formatters = {
+        prettier = {
+          append_args = {
+            -- Orders tailwind classes
+            -- TODO: make sure this works in any repo
+            '--plugin=../../Library/Application Support/fnm/node-versions/v16.15.0/installation/lib/node_modules/prettier-plugin-tailwindcss/dist/index.mjs',
+          },
+        },
       },
     },
   },
