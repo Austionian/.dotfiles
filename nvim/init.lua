@@ -1049,6 +1049,25 @@ require('lazy').setup({
   },
   { 'mbbill/undotree' },
   { 'tpope/vim-fugitive' },
+  {
+    'stevearc/oil.nvim',
+    dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+    config = function()
+      require('oil').setup {
+        columns = { 'icon' },
+        keymaps = {
+          ['<C-p>'] = false,
+          ['<C-h>'] = false,
+          view_options = {
+            show_hidden = true,
+          },
+
+          vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = 'Open parent directory' }),
+          vim.keymap.set('n', '<leader>-', require('oil').toggle_float),
+        },
+      }
+    end,
+  },
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
