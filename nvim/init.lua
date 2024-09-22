@@ -1063,6 +1063,7 @@ require('lazy').setup({
           },
 
           vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = 'Open parent directory' }),
+          vim.keymap.set('n', '<leader>pe', '<cmd>Oil<cr>', { desc = 'Open parent directory' }),
           vim.keymap.set('n', '<leader>-', require('oil').toggle_float),
         },
       }
@@ -1115,3 +1116,4 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
