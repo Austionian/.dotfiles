@@ -154,7 +154,8 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 -- vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 -- vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-vim.keymap.set('n', '<leader>pv', ':Vex<CR>', { desc = 'open a new vertical window' })
+vim.keymap.set('n', '<leader>pv', '<C-w>v', { desc = 'open a new vertical window' })
+vim.keymap.set('n', '<leader>ps', '<C-w>s', { desc = 'open a new vertical window' })
 
 vim.keymap.set('n', '<C-j>', ':cnext<CR>', { desc = 'Move to the next quicklist buffer' })
 vim.keymap.set('n', '<C-k>', ':cprev<CR>', { desc = 'Move to the previous quicklist buffer' })
@@ -1055,12 +1056,14 @@ require('lazy').setup({
     config = function()
       require('oil').setup {
         columns = { 'icon' },
+        view_options = {
+          default_file_explorer = true,
+          -- Show files and directories that start with "."
+          show_hidden = true,
+        },
         keymaps = {
           ['<C-p>'] = false,
           ['<C-h>'] = false,
-          view_options = {
-            show_hidden = true,
-          },
 
           vim.keymap.set('n', '-', '<cmd>Oil<cr>', { desc = 'Open parent directory' }),
           vim.keymap.set('n', '<leader>pe', '<cmd>Oil<cr>', { desc = 'Open parent directory' }),
